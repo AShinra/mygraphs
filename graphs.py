@@ -9,6 +9,14 @@ from streamlit_option_menu import option_menu
 
 def bar_graph(df):
 
+    with st.sidebar:
+        yyy = option_menu(
+            menu_title='tyatata',
+            options=['aa', 'dd']
+        )
+
+    exit()
+
     # Create a new Workbook
     wb = openpyxl.Workbook()
     wb.create_sheet('Bar')
