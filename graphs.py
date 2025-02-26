@@ -45,8 +45,8 @@ def bar_graph(df):
     _chart.type = 'col'
     _chart.style = 2
     _chart.grouping = _bgroup
-    _chart.overlap = 100
-    _chart.gapWidth = 10
+    # _chart.overlap = 100
+    # _chart.gapWidth = 10
     # _chart.x_axis.delete = False
     # _chart.y_axis.delete = False
     _chart.legend.position = 'b'
