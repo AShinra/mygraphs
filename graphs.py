@@ -5,6 +5,7 @@ from openpyxl.chart import BarChart, Reference
 from openpyxl.chart.label import DataLabelList
 from openpyxl.chart.plotarea import DataTable
 from io import BytesIO
+import tempfile
 from PIL import Image
 
 
@@ -54,7 +55,7 @@ def bar_graph(df):
         _chart.shape = 4
         _chart.dataLabels = DataLabelList()
         _chart.dataLabels.showVal = True
-        _chart.DataTable = DataTable(True, True, True, True)
+        _chart.DataTable = DataTable()
         _chart.height = 15
         _chart.width = 30
 
@@ -71,7 +72,7 @@ def bar_graph(df):
         ws.add_chart(_chart, "J1")
 
         # Save the Workbook to a file
-        wb.save("Bar.xlsx")
+        wb.save("Bar.xlsx")        
 
     result_file = open("Bar.xlsx", 'rb')
     st.success(f':red[NOTE:] Downloaded file will go to the :red[Downloads Folder]')
