@@ -15,8 +15,6 @@ def bar_graph(df):
             options=['aa', 'dd']
         )
 
-    exit()
-
     # Create a new Workbook
     wb = openpyxl.Workbook()
     wb.create_sheet('Bar')
