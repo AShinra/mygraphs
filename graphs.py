@@ -4,9 +4,7 @@ import streamlit as st
 from openpyxl.chart import BarChart, Reference
 from openpyxl.chart.label import DataLabelList
 from openpyxl.chart.plotarea import DataTable
-from io import BytesIO
-import tempfile
-from PIL import Image
+from streamlit_option_menu import option_menu
 
 
 def bar_graph(df):
@@ -21,6 +19,12 @@ def bar_graph(df):
 
     
     if btn_create_graph:
+
+        with st.sidebar:
+            bar_type = option_menu(
+                menu_icon='Bar Gouping',
+                options=['Standard', 'Stacked', 'Percent Stacked', 'Clustered']
+            )
         
         l, w = df.shape
 
