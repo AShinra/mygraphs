@@ -62,10 +62,10 @@ def bar_graph(df):
         _chart.title = "Custom Bar Chart"
         _chart.y_axis.title = "Values"
         _chart.x_axis.title = "Categories"
-        # _chart.y_axis.majorGridlines = None
-        # _chart.x_axis.majorGridlines = None
-        # _chart.y_axis.tickLblPos = "low"
-        # _chart.x_axis.tickLblPos = "low"
+        _chart.y_axis.majorGridlines = None
+        _chart.x_axis.majorGridlines = None
+        _chart.y_axis.tickLblPos = "low"
+        _chart.x_axis.tickLblPos = "low"
 
 
         # Add the chart to the worksheet
