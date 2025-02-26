@@ -24,7 +24,7 @@ def bar_graph(df):
     # if bar_group == 'Percent Stacked':
     #     _bgroup = 'percentstacked'
 
-    st.radio('Bar Grouping', options=['Standard', 'Stacked', 'Clustered', 'Percent Stacked'], key='bar_group')
+    st.radio('Bar Grouping', options=['Standard', 'Stacked', 'Clustered', 'Percent Stacked'], key='bar_group', horizontal=True)
     if st.session_state['bar_group'] == 'Standard':
         _bgroup = 'standard'
     if st.session_state['bar_group'] == 'Stacked':
