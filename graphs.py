@@ -72,6 +72,10 @@ def bar_graph(df):
         ws.add_chart(_chart, "J1")
 
         # Save the Workbook to a file
-        wb.save("Bar.xlsx")    
+        wb.save("Bar.xlsx")
+
+        result_file = open("Bar.xlsx", 'rb')
+        st.success(f':red[NOTE:] Downloaded file will go to the :red[Downloads Folder]')
+        st.download_button(label='📥 Download Cleaned Raw', data=result_file ,file_name= f'testing_graph.xlsx')   
 
     return

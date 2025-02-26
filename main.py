@@ -30,9 +30,6 @@ if __name__ == '__main__':
 
             if selected == 'Bar':
                 bar_graph(df)
-                result_file = open("Bar.xlsx", 'rb')
-                st.success(f':red[NOTE:] Downloaded file will go to the :red[Downloads Folder]')
-                st.download_button(label='📥 Download Cleaned Raw', data=result_file ,file_name= f'testing_graph.xlsx')
             
             if selected == 'Pie':
                 st.warning('Under Development')
