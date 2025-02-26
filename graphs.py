@@ -10,18 +10,25 @@ from streamlit_option_menu import option_menu
 def bar_graph(df):
 
     with st.sidebar:
-        yyy = option_menu(
+        bar_group = option_menu(
             menu_title='tyatata',
-            options=['aa', 'dd']
+            options=['Standard', 'Stacked', 'Clustered', 'Percent Stacked']
         )
+
+    if bar_group == 'Standard':
+        _bgroup = 'standard'
+    if bar_group == 'Stacked':
+        _bgroup = 'stacked'
+    if bar_group == 'Clustered':
+        _bgroup = 'clustered'
+    if bar_group == 'Percent Stacked':
+        _bgroup = 'percentstacked'
 
     # Create a new Workbook
     wb = openpyxl.Workbook()
     wb.create_sheet('Bar')
     ws = wb['Bar']
-    wb.save('Bar.xlsx')
-
-    
+    wb.save('Bar.xlsx')    
 
     l, w = df.shape
 
@@ -37,7 +44,7 @@ def bar_graph(df):
     _chart = BarChart()
     _chart.type = 'col'
     _chart.style = 2
-    _chart.grouping = 'stacked'
+    _chart.grouping = _bgroup
     _chart.overlap = 100
     _chart.gapWidth = 10
     # _chart.x_axis.delete = False
