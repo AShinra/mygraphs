@@ -9,20 +9,31 @@ from streamlit_option_menu import option_menu
 
 def bar_graph(df):
 
-    with st.sidebar:
-        bar_group = option_menu(
-            menu_title='tyatata',
-            options=['Standard', 'Stacked', 'Clustered', 'Percent Stacked']
-        )
+    # with st.sidebar:
+    #     bar_group = option_menu(
+    #         menu_title='tyatata',
+    #         options=['Standard', 'Stacked', 'Clustered', 'Percent Stacked']
+    #     )
 
-    if bar_group == 'Standard':
+    # if bar_group == 'Standard':
+    #     _bgroup = 'standard'
+    # if bar_group == 'Stacked':
+    #     _bgroup = 'stacked'
+    # if bar_group == 'Clustered':
+    #     _bgroup = 'clustered'
+    # if bar_group == 'Percent Stacked':
+    #     _bgroup = 'percentstacked'
+
+    st.radio('Bar Grouping', options=['Standard', 'Stacked', 'Clustered', 'Percent Stacked'], key='bar_group')
+    if st.session_state['bar_group'] == 'Standard':
         _bgroup = 'standard'
-    if bar_group == 'Stacked':
+    if st.session_state['bar_group'] == 'Stacked':
         _bgroup = 'stacked'
-    if bar_group == 'Clustered':
+    if st.session_state['bar_group'] == 'Clustered':
         _bgroup = 'clustered'
-    if bar_group == 'Percent Stacked':
+    if st.session_state['bar_group'] == 'Percent Stacked':
         _bgroup = 'percentstacked'
+
 
     # Create a new Workbook
     wb = openpyxl.Workbook()
