@@ -52,7 +52,8 @@ def bar_graph(df):
         _chart.add_data(data, titles_from_data=True)
         _chart.set_categories(categories)
         _chart.shape = 4
-        _chart.dataLabels = True
+        _chart.dataLabels = DataLabelList()
+        _chart.dataLabels.showVal = True
         _chart.DataTable = DataTable(True, True, True, True)
         _chart.height = 15
         _chart.width = 30
