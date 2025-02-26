@@ -72,8 +72,6 @@ def bar_graph(df):
         ws.add_chart(_chart, "J1")
 
         # Save the Workbook to a file
-        wb.save("Bar.xlsx")        
-
-    
+        wb.save("Bar.xlsx")    
 
     return
