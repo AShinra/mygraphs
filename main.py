@@ -29,7 +29,12 @@ if __name__ == '__main__':
             st.dataframe(df, use_container_width=True)
 
             if selected == 'Bar':
+                with st.sidebar:
+                    bar_type = option_menu(
+                        menu_icon='Bar Gouping',
+                        options=['Standard', 'Stacked', 'Percent Stacked', 'Clustered'])
                 bar_graph(df)
+
             
             if selected == 'Pie':
                 st.warning('Under Development')

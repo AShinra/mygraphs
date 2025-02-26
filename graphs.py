@@ -15,11 +15,7 @@ def bar_graph(df):
     ws = wb['Bar']
     wb.save('Bar.xlsx')
 
-    with st.sidebar:
-        bar_type = option_menu(
-            menu_icon='Bar Gouping',
-            options=['Standard', 'Stacked', 'Percent Stacked', 'Clustered']
-        )
+    
 
     l, w = df.shape
 
