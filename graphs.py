@@ -90,6 +90,8 @@ def bar_graph(df):
     _chart.y_axis.tickLblPos = "low"
     _chart.x_axis.tickLblPos = "low"    
 
+    exit()
+
     btn_create_graph = st.button('Create Graph')
     
     if btn_create_graph:
