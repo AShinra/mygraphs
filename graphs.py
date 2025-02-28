@@ -5,6 +5,7 @@ from openpyxl.chart import BarChart, Reference
 from openpyxl.chart.label import DataLabelList
 from openpyxl.chart.plotarea import DataTable
 from streamlit_option_menu import option_menu
+import win32com.client
 
 
 def bar_graph(df):
@@ -98,6 +99,26 @@ def bar_graph(df):
 
         # Save the Workbook to a file
         wb.save("Bar.xlsx")
+
+        # Open Excel
+        excel = win32com.client.Dispatch("Excel.Application")
+        excel.Visible = False  # Run in background
+
+        # Open the workbook
+        wb = excel.Workbooks.Open(r"your_file.xlsx")
+        ws = wb.Sheets("Sheet1")  # Change to your sheet name
+
+        # Select the chart (Change index accordingly)
+        chart = ws.ChartObjects(1).Chart  
+
+        # Export chart as an image
+        chart.Export('chart.png')
+
+        # Close Excel
+        wb.Close(False)
+        excel.Quit()
+
+        st.image('chart.png')
 
         result_file = open("Bar.xlsx", 'rb')
         st.success(f':red[NOTE:] Downloaded file will go to the :red[Downloads Folder]')
