@@ -1,7 +1,7 @@
 import openpyxl
 import pandas as pd
 import streamlit as st
-from graphs import bar_graph
+from bar_graph import bar_graph
 from streamlit_option_menu import option_menu
 
 
@@ -24,16 +24,15 @@ if __name__ == '__main__':
 
     if st.session_state['csvfile'] not in [None, '']:
         df = get_data(st.session_state['csvfile'])
-
-        with st.container(border=True):
+        
+        with st.expander('View Dataframe'):
             st.dataframe(df, use_container_width=True)
 
-            if selected == 'Bar':
-                bar_graph(df)
+        if selected == 'Bar':
+            bar_graph(df)
 
-            
-            if selected == 'Pie':
-                st.warning('Under Development')
+        if selected == 'Pie':
+            st.warning('Under Development')
 
-            if selected == 'Line':
-                st.warning('Under Development')
+        if selected == 'Line':
+            st.warning('Under Development')
