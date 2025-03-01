@@ -6,25 +6,47 @@ from openpyxl.chart.label import DataLabelList
 from openpyxl.chart.plotarea import DataTable
 from streamlit_option_menu import option_menu
 import win32com.client
+import PIL
+from PIL import ImageGrab, Image
+import os
+import sys
+import pythoncom
+
+
+def convert_to_image(_file):
+
+    # Initialize COM
+    pythoncom.CoInitialize()
+    
+    # Open Excel
+    excel = win32com.client.Dispatch("Excel.Application")
+    excel.Visible = False  # Run in the background
+    wb = excel.Workbooks.Open(_file)
+
+    # Extract first sheet
+    _sheet = excel.Sheets('Bar')
+    
+    shape = _sheet.Shapes[0]
+    shape.Copy()
+    image = ImageGrab.grabclipboard()
+    # Saves the image into the existing png file (overwriting) TODO ***** Have try except?
+    outputfile = f'{os.getcwd()}/preview_chart.png'
+    image.save(outputfile, 'png')
+            
+    # Close Excel properly
+    wb.Close(False)
+    excel.Quit()
+
+    # Uninitialize COM
+    pythoncom.CoInitialize()
+
+    return outputfile
+
+
 
 
 def bar_graph(df):
-
-    # with st.sidebar:
-    #     bar_group = option_menu(
-    #         menu_title='tyatata',
-    #         options=['Standard', 'Stacked', 'Clustered', 'Percent Stacked']
-    #     )
-
-    # if bar_group == 'Standard':
-    #     _bgroup = 'standard'
-    # if bar_group == 'Stacked':
-    #     _bgroup = 'stacked'
-    # if bar_group == 'Clustered':
-    #     _bgroup = 'clustered'
-    # if bar_group == 'Percent Stacked':
-    #     _bgroup = 'percentstacked'
-
+ 
     st.radio('Bar Grouping', options=['Standard', 'Stacked', 'Clustered', 'Percent Stacked'], key='bar_group', horizontal=True)
     if st.session_state['bar_group'] == 'Standard':
         _bgroup = 'standard'
@@ -34,7 +56,6 @@ def bar_graph(df):
         _bgroup = 'clustered'
     if st.session_state['bar_group'] == 'Percent Stacked':
         _bgroup = 'percentstacked'
-
 
     # Create a new Workbook
     wb = openpyxl.Workbook()
@@ -90,39 +111,24 @@ def bar_graph(df):
     _chart.y_axis.tickLblPos = "low"
     _chart.x_axis.tickLblPos = "low"    
 
-    exit()
-
     btn_create_graph = st.button('Create Graph')
     
     if btn_create_graph:
-
+        
         # Add the chart to the worksheet
         ws.add_chart(_chart, "J1")
 
         # Save the Workbook to a file
-        wb.save("Bar.xlsx")
+        wb.save(f'{os.getcwd()}/Bar.xlsx')
+        wb.close()
 
-        # Open Excel
-        excel = win32com.client.Dispatch("Excel.Application")
-        excel.Visible = False  # Run in background
+        _file = f'{os.getcwd()}/Bar.xlsx'
+        img_preview = convert_to_image(_file)
 
-        # Open the workbook
-        wb = excel.Workbooks.Open(r"your_file.xlsx")
-        ws = wb.Sheets("Sheet1")  # Change to your sheet name
-
-        # Select the chart (Change index accordingly)
-        chart = ws.ChartObjects(1).Chart  
-
-        # Export chart as an image
-        chart.Export('chart.png')
-
-        # Close Excel
-        wb.Close(False)
-        excel.Quit()
-
-        st.image('chart.png')
-
-        result_file = open("Bar.xlsx", 'rb')
+        st.success('Chart Preview')
+        st.image(img_preview)
+             
+        result_file = open('Bar.xlsx', 'rb')
         st.success(f':red[NOTE:] Downloaded file will go to the :red[Downloads Folder]')
         st.download_button(label='📥 Download Cleaned Raw', data=result_file ,file_name= f'testing_graph.xlsx')   
         
