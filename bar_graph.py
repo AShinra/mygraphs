@@ -11,7 +11,7 @@ import PIL
 from PIL import ImageGrab, Image
 import os
 import sys
-import pythoncom
+# import pythoncom
 import excel2img
 
 
