@@ -6,40 +6,43 @@ from openpyxl.chart.label import DataLabelList
 from openpyxl.chart.plotarea import DataTable
 from openpyxl.drawing.text import Paragraph, ParagraphProperties, CharacterProperties, Font
 from streamlit_option_menu import option_menu
-import win32com.client
+# import win32com.client
 import PIL
 from PIL import ImageGrab, Image
 import os
 import sys
 import pythoncom
+import excel2img
 
 
 def convert_to_image(_file):
 
-    # Initialize COM
-    pythoncom.CoInitialize()
+    # # Initialize COM
+    # pythoncom.CoInitialize()
     
-    # Open Excel
-    excel = win32com.client.Dispatch("Excel.Application")
-    excel.Visible = False  # Run in the background
-    wb = excel.Workbooks.Open(_file)
+    # # Open Excel
+    # excel = win32com.client.Dispatch("Excel.Application")
+    # excel.Visible = False  # Run in the background
+    # wb = excel.Workbooks.Open(_file)
 
-    # Extract first sheet
-    _sheet = excel.Sheets('Bar')
+    # # Extract first sheet
+    # _sheet = excel.Sheets('Bar')
     
-    shape = _sheet.Shapes[0]
-    shape.Copy()
-    image = ImageGrab.grabclipboard()
-    # Saves the image into the existing png file (overwriting) TODO ***** Have try except?
+    # shape = _sheet.Shapes[0]
+    # shape.Copy()
+    # image = ImageGrab.grabclipboard()
+    # # Saves the image into the existing png file (overwriting) TODO ***** Have try except?
     outputfile = f'{os.getcwd()}/preview_chart.png'
-    image.save(outputfile, 'png')
+    # image.save(outputfile, 'png')
             
-    # Close Excel properly
-    wb.Close(False)
-    excel.Quit()
+    # # Close Excel properly
+    # wb.Close(False)
+    # excel.Quit()
 
-    # Uninitialize COM
-    pythoncom.CoInitialize()
+    # # Uninitialize COM
+    # pythoncom.CoInitialize()
+
+    excel2img.export_img(_file, outputfile, "ChartSheet", None)
 
     return outputfile
 
